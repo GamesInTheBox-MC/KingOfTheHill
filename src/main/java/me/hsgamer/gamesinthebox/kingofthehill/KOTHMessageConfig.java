@@ -31,6 +31,10 @@ public interface KOTHMessageConfig {
                 "&fYou need to stand on it to get points",
                 "&fThe player with the most points will win"
         ));
+        map.put("points", Arrays.asList(
+                "&fPoints when you stand on the box: &a{game_point_plus}",
+                "&fPoints when you leave the box: &c{game_point_minus}"
+        ));
         map.put("top", Arrays.asList(
                 "&a#1 &f{game_top_name_1} &7- &f{game_top_value_1}",
                 "&a#2 &f{game_top_name_2} &7- &f{game_top_value_2}",
