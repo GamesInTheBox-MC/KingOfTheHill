@@ -1,9 +1,11 @@
 package me.hsgamer.gamesinthebox.kingofthehill;
 
 import me.hsgamer.gamesinthebox.game.simple.SimpleGameArena;
+import me.hsgamer.gamesinthebox.game.simple.feature.SimpleBoundingFeature;
 import me.hsgamer.gamesinthebox.planner.Planner;
 import me.hsgamer.gamesinthebox.util.ActionBarUtil;
 import me.hsgamer.hscore.common.CollectionUtils;
+import me.hsgamer.minigamecore.base.Feature;
 
 import java.util.List;
 import java.util.Optional;
@@ -29,6 +31,13 @@ public class KOTHGameArena extends SimpleGameArena {
                 .replace("{total}", Integer.toString(totalPoints));
 
         ActionBarUtil.sendActionBar(uuid, finalMessage);
+    }
+
+    @Override
+    protected List<Feature> loadFeatures() {
+        List<Feature> features = super.loadFeatures();
+        features.add(new SimpleBoundingFeature(this, true));
+        return features;
     }
 
     @Override
