@@ -10,14 +10,14 @@
         <version>1.0.0-SNAPSHOT</version>
     </parent>
 
-    <artifactId>example-expansion</artifactId>
+    <artifactId>king-of-the-hill</artifactId>
     <version>1.0.0-SNAPSHOT</version>
     <packaging>jar</packaging>
 
-    <name>ExampleExpansion</name>
-    <description>An Example expansion for GamesInTheBox</description>
+    <name>KingOfTheHill</name>
+    <description>Be the one on top of the hill &amp; earn points for victory</description>
 
     <properties>
-        <project.mainClass>me.hsgamer.gamesinthebox.exampleexpansion.ExampleExpansion</project.mainClass>
+        <project.mainClass>me.hsgamer.gamesinthebox.kingofthehill.KingOfTheHill</project.mainClass>
     </properties>
 </project>
