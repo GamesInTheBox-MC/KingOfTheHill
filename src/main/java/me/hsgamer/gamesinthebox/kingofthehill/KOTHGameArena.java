@@ -2,6 +2,8 @@ package me.hsgamer.gamesinthebox.kingofthehill;
 
 import me.hsgamer.gamesinthebox.game.simple.SimpleGameArena;
 import me.hsgamer.gamesinthebox.game.simple.feature.SimpleBoundingFeature;
+import me.hsgamer.gamesinthebox.kingofthehill.feature.CooldownFeature;
+import me.hsgamer.gamesinthebox.kingofthehill.state.IdlingState;
 import me.hsgamer.gamesinthebox.planner.Planner;
 import me.hsgamer.gamesinthebox.util.ActionBarUtil;
 import me.hsgamer.hscore.common.CollectionUtils;
@@ -37,6 +39,7 @@ public class KOTHGameArena extends SimpleGameArena {
     protected List<Feature> loadFeatures() {
         List<Feature> features = super.loadFeatures();
         features.add(new SimpleBoundingFeature(this, true));
+        features.add(new CooldownFeature(this));
         return features;
     }
 
@@ -48,13 +51,18 @@ public class KOTHGameArena extends SimpleGameArena {
     }
 
     @Override
-    public void start() {
+    protected void postInitArena() {
+        setNextState(IdlingState.class);
+    }
 
+    @Override
+    public void start() {
+        getFeature(CooldownFeature.class).setCanStart(true);
     }
 
     @Override
     public void forceEnd() {
-
+        setNextState(IdlingState.class);
     }
 
     @Override

@@ -44,4 +44,39 @@ public interface KOTHMessageConfig {
         ));
         return map;
     }
+
+    @ConfigPath("state.waiting")
+    default String getStateWaiting() {
+        return "Waiting";
+    }
+
+    @ConfigPath("state.in-game")
+    default String getStateInGame() {
+        return "In Game";
+    }
+
+    @ConfigPath("state.ending")
+    default String getStateEnding() {
+        return "Ending";
+    }
+
+    @ConfigPath("state.idle")
+    default String getStateIdle() {
+        return "Idle";
+    }
+
+    @ConfigPath("start-broadcast")
+    default String getStartBroadcast() {
+        return "&aThe game has started!";
+    }
+
+    @ConfigPath("end-broadcast")
+    default String getEndBroadcast() {
+        return "&aThe game has ended!";
+    }
+
+    @ConfigPath("not-enough-player-to-reward")
+    default String getNotEnoughPlayerToReward() {
+        return "&cThere are not enough players to reward";
+    }
 }

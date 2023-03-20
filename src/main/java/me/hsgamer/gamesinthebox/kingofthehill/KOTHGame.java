@@ -1,10 +1,14 @@
 package me.hsgamer.gamesinthebox.kingofthehill;
 
 import me.hsgamer.gamesinthebox.game.simple.SimpleGame;
+import me.hsgamer.gamesinthebox.kingofthehill.state.EndingState;
+import me.hsgamer.gamesinthebox.kingofthehill.state.IdlingState;
+import me.hsgamer.gamesinthebox.kingofthehill.state.InGameState;
+import me.hsgamer.gamesinthebox.kingofthehill.state.WaitingState;
 import me.hsgamer.gamesinthebox.planner.Planner;
 import me.hsgamer.minigamecore.base.GameState;
 
-import java.util.Collections;
+import java.util.Arrays;
 import java.util.List;
 
 public class KOTHGame extends SimpleGame {
@@ -26,6 +30,11 @@ public class KOTHGame extends SimpleGame {
 
     @Override
     protected List<GameState> loadGameStates() {
-        return Collections.emptyList();
+        return Arrays.asList(
+                new IdlingState(expansion),
+                new WaitingState(expansion),
+                new InGameState(expansion),
+                new EndingState(expansion)
+        );
     }
 }
