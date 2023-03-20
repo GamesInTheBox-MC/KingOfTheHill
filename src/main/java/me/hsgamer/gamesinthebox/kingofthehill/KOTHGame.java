@@ -21,7 +21,7 @@ public class KOTHGame extends SimpleGame {
 
     @Override
     public String getDisplayName() {
-        return expansion.getConfig().getDisplayName();
+        return expansion.getMessageConfig().getDisplayName();
     }
 
     @Override

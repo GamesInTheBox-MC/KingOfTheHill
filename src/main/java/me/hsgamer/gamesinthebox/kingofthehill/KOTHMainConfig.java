@@ -2,12 +2,7 @@ package me.hsgamer.gamesinthebox.kingofthehill;
 
 import me.hsgamer.hscore.config.annotation.ConfigPath;
 
-public interface KOTHConfig {
-    @ConfigPath("display-name")
-    default String getDisplayName() {
-        return "King of the Hill";
-    }
-
+public interface KOTHMainConfig {
     @ConfigPath("game.interval")
     default long getGameInterval() {
         return 20;

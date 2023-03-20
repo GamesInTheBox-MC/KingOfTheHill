@@ -8,7 +8,8 @@ import me.hsgamer.hscore.config.proxy.ConfigGenerator;
 import java.io.File;
 
 public class KingOfTheHill extends SingleGameExpansion {
-    private final KOTHConfig config = ConfigGenerator.newInstance(KOTHConfig.class, new BukkitConfig(new File(getDataFolder(), "config.yml")));
+    private final KOTHMainConfig mainConfig = ConfigGenerator.newInstance(KOTHMainConfig.class, new BukkitConfig(new File(getDataFolder(), "config.yml")));
+    private final KOTHMessageConfig messageConfig = ConfigGenerator.newInstance(KOTHMessageConfig.class, new BukkitConfig(new File(getDataFolder(), "messages.yml")));
 
     @Override
     protected Game getGame() {
@@ -20,7 +21,11 @@ public class KingOfTheHill extends SingleGameExpansion {
         return new String[]{"king-of-the-hill", "koth"};
     }
 
-    public KOTHConfig getConfig() {
-        return config;
+    public KOTHMainConfig getMainConfig() {
+        return mainConfig;
+    }
+
+    public KOTHMessageConfig getMessageConfig() {
+        return messageConfig;
     }
 }
