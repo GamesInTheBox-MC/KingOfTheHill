@@ -26,7 +26,7 @@ public interface KOTHMessageConfig {
     default Map<String, Object> getDefaultHologramLines() {
         Map<String, Object> map = new LinkedHashMap<>();
         map.put("description", Arrays.asList(
-                "&c&l{planner_game_name}",
+                "&c&lKING OF THE HILL",
                 "&fThere is a box in the middle of the arena",
                 "&fYou need to stand on it to get points",
                 "&fThe player with the most points will win"
