@@ -53,7 +53,7 @@ public class ParticleFeature implements Feature {
         BlockBox box = boundingFeature.getBlockBox();
         Location start = BukkitBlockAdapter.adapt(world, new Position(box.minX, box.minY, box.minZ));
         Location end = BukkitBlockAdapter.adapt(world, new Position(box.maxX, box.maxY, box.maxZ));
-        task = Bukkit.getScheduler().runTaskTimerAsynchronously(arena.getPlanner().getFeature(PluginFeature.class).getPlugin(), () -> XParticle.cube(start, end, rate, particle), period, period);
+        task = Bukkit.getScheduler().runTaskTimerAsynchronously(arena.getPlanner().getFeature(PluginFeature.class).getPlugin(), () -> XParticle.structuredCube(start, end, rate, particle), period, period);
     }
 
     public void stop() {
