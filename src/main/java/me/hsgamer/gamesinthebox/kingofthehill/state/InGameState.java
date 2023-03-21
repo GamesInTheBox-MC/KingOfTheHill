@@ -3,7 +3,6 @@ package me.hsgamer.gamesinthebox.kingofthehill.state;
 import me.hsgamer.gamesinthebox.game.feature.BoundingFeature;
 import me.hsgamer.gamesinthebox.game.feature.PointFeature;
 import me.hsgamer.gamesinthebox.game.simple.feature.SimplePointFeature;
-import me.hsgamer.gamesinthebox.game.simple.feature.SimpleUpdateFeature;
 import me.hsgamer.gamesinthebox.kingofthehill.KingOfTheHill;
 import me.hsgamer.gamesinthebox.kingofthehill.feature.CooldownFeature;
 import me.hsgamer.gamesinthebox.util.GameUtil;
@@ -54,8 +53,6 @@ public class InGameState implements GameState, ColoredDisplayName {
         if (!playersToAdd.isEmpty()) {
             pointFeature.tryAddPoint(playersToAdd);
         }
-
-        arena.getFeature(SimpleUpdateFeature.class).updateState();
     }
 
     @Override
