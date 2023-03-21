@@ -2,8 +2,8 @@ package me.hsgamer.gamesinthebox.kingofthehill.state;
 
 import me.hsgamer.gamesinthebox.game.feature.PointFeature;
 import me.hsgamer.gamesinthebox.game.simple.feature.SimpleRewardFeature;
-import me.hsgamer.gamesinthebox.kingofthehill.GameUtil;
 import me.hsgamer.gamesinthebox.kingofthehill.KingOfTheHill;
+import me.hsgamer.gamesinthebox.util.GameUtil;
 import me.hsgamer.hscore.bukkit.utils.MessageUtils;
 import me.hsgamer.minigamecore.base.Arena;
 import me.hsgamer.minigamecore.base.GameState;
@@ -22,7 +22,7 @@ public class EndingState implements GameState, ColoredDisplayName {
 
     @Override
     public void start(Arena arena) {
-        String endMessage = GameUtil.replace(expansion.getMessageConfig().getEndBroadcast(), arena);
+        String endMessage = GameUtil.replaceName(expansion.getMessageConfig().getEndBroadcast(), arena);
         Bukkit.getOnlinePlayers().forEach(player -> MessageUtils.sendMessage(player, endMessage));
     }
 
@@ -30,7 +30,7 @@ public class EndingState implements GameState, ColoredDisplayName {
     public void update(Arena arena) {
         List<UUID> topList = arena.getFeature(PointFeature.class).getTopUUID();
         if (!arena.getFeature(SimpleRewardFeature.class).tryReward(topList)) {
-            String notEnoughPlayerMessage = GameUtil.replace(expansion.getMessageConfig().getNotEnoughPlayerToReward(), arena);
+            String notEnoughPlayerMessage = GameUtil.replaceName(expansion.getMessageConfig().getNotEnoughPlayerToReward(), arena);
             Bukkit.getOnlinePlayers().forEach(player -> MessageUtils.sendMessage(player, notEnoughPlayerMessage));
         }
         arena.setNextState(IdlingState.class);

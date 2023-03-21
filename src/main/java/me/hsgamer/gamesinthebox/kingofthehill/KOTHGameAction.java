@@ -4,7 +4,6 @@ import me.hsgamer.gamesinthebox.game.GameAction;
 import me.hsgamer.minigamecore.implementation.feature.TimerFeature;
 import org.bukkit.command.CommandSender;
 
-import java.util.Arrays;
 import java.util.Collections;
 import java.util.List;
 

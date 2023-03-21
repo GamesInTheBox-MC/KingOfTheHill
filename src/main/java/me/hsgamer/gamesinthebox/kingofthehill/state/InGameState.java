@@ -4,9 +4,9 @@ import me.hsgamer.gamesinthebox.game.feature.BoundingFeature;
 import me.hsgamer.gamesinthebox.game.feature.PointFeature;
 import me.hsgamer.gamesinthebox.game.simple.feature.SimplePointFeature;
 import me.hsgamer.gamesinthebox.game.simple.feature.SimpleUpdateFeature;
-import me.hsgamer.gamesinthebox.kingofthehill.GameUtil;
 import me.hsgamer.gamesinthebox.kingofthehill.KingOfTheHill;
 import me.hsgamer.gamesinthebox.kingofthehill.feature.CooldownFeature;
+import me.hsgamer.gamesinthebox.util.GameUtil;
 import me.hsgamer.hscore.bukkit.utils.MessageUtils;
 import me.hsgamer.minigamecore.base.Arena;
 import me.hsgamer.minigamecore.base.GameState;
@@ -28,7 +28,7 @@ public class InGameState implements GameState, ColoredDisplayName {
 
     @Override
     public void start(Arena arena) {
-        String startMessage = GameUtil.replace(expansion.getMessageConfig().getStartBroadcast(), arena);
+        String startMessage = GameUtil.replaceName(expansion.getMessageConfig().getStartBroadcast(), arena);
         Bukkit.getOnlinePlayers().forEach(player -> MessageUtils.sendMessage(player, startMessage));
         arena.getFeature(CooldownFeature.class).start(this);
     }
