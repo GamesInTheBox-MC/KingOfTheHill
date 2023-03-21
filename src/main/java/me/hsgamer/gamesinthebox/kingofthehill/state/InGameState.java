@@ -5,6 +5,7 @@ import me.hsgamer.gamesinthebox.game.feature.PointFeature;
 import me.hsgamer.gamesinthebox.game.simple.feature.SimplePointFeature;
 import me.hsgamer.gamesinthebox.kingofthehill.KingOfTheHill;
 import me.hsgamer.gamesinthebox.kingofthehill.feature.CooldownFeature;
+import me.hsgamer.gamesinthebox.kingofthehill.feature.ParticleFeature;
 import me.hsgamer.gamesinthebox.util.GameUtil;
 import me.hsgamer.hscore.bukkit.utils.MessageUtils;
 import me.hsgamer.minigamecore.base.Arena;
@@ -30,6 +31,7 @@ public class InGameState implements GameState, ColoredDisplayName {
         String startMessage = GameUtil.replaceName(expansion.getMessageConfig().getStartBroadcast(), arena);
         Bukkit.getOnlinePlayers().forEach(player -> MessageUtils.sendMessage(player, startMessage));
         arena.getFeature(CooldownFeature.class).start(this);
+        arena.getFeature(ParticleFeature.class).start();
     }
 
     @Override
@@ -53,6 +55,11 @@ public class InGameState implements GameState, ColoredDisplayName {
         if (!playersToAdd.isEmpty()) {
             pointFeature.tryAddPoint(playersToAdd);
         }
+    }
+
+    @Override
+    public void end(Arena arena) {
+        arena.getFeature(ParticleFeature.class).stop();
     }
 
     @Override
