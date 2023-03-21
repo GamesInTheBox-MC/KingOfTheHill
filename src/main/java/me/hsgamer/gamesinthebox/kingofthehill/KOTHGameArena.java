@@ -1,5 +1,6 @@
 package me.hsgamer.gamesinthebox.kingofthehill;
 
+import me.hsgamer.gamesinthebox.game.GameAction;
 import me.hsgamer.gamesinthebox.game.simple.SimpleGameArena;
 import me.hsgamer.gamesinthebox.game.simple.feature.SimpleBoundingFeature;
 import me.hsgamer.gamesinthebox.kingofthehill.feature.CooldownFeature;
@@ -15,10 +16,12 @@ import java.util.UUID;
 
 public class KOTHGameArena extends SimpleGameArena {
     private final KingOfTheHill expansion;
+    private final KOTHGameAction gameAction;
 
     public KOTHGameArena(KingOfTheHill expansion, String name, KOTHGame game, Planner planner) {
         super(name, game, planner);
         this.expansion = expansion;
+        this.gameAction = new KOTHGameAction(this);
     }
 
     @Override
@@ -63,6 +66,11 @@ public class KOTHGameArena extends SimpleGameArena {
     @Override
     public void forceEnd() {
         setNextState(IdlingState.class);
+    }
+
+    @Override
+    public GameAction getGameAction() {
+        return gameAction;
     }
 
     @Override
