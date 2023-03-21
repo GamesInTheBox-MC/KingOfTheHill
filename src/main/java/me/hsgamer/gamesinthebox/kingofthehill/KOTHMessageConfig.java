@@ -42,6 +42,10 @@ public interface KOTHMessageConfig {
                 "&a#4 &f{game_top_name_4} &7- &f{game_top_value_4}",
                 "&a#5 &f{game_top_name_5} &7- &f{game_top_value_5}"
         ));
+        map.put("status", Arrays.asList(
+                "&fStatus: &a{planner_game_state}",
+                "&fTime left: &a{game_time_left}"
+        ));
         return map;
     }
 
