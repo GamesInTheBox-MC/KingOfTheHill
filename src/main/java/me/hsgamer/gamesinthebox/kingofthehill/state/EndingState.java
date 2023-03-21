@@ -1,5 +1,6 @@
 package me.hsgamer.gamesinthebox.kingofthehill.state;
 
+import me.hsgamer.gamesinthebox.game.feature.PlannerFeature;
 import me.hsgamer.gamesinthebox.game.feature.PointFeature;
 import me.hsgamer.gamesinthebox.game.simple.feature.SimpleRewardFeature;
 import me.hsgamer.gamesinthebox.kingofthehill.KingOfTheHill;
@@ -34,6 +35,11 @@ public class EndingState implements GameState, ColoredDisplayName {
             Bukkit.getOnlinePlayers().forEach(player -> MessageUtils.sendMessage(player, notEnoughPlayerMessage));
         }
         arena.setNextState(IdlingState.class);
+    }
+
+    @Override
+    public void end(Arena arena) {
+        arena.getFeature(PlannerFeature.class).notifyFinished();
     }
 
     @Override
