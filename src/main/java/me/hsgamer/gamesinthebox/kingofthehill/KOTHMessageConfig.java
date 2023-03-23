@@ -83,4 +83,6 @@ public interface KOTHMessageConfig {
     default String getNotEnoughPlayerToReward() {
         return "&cThere are not enough players to reward";
     }
+
+    void reloadConfig();
 }
