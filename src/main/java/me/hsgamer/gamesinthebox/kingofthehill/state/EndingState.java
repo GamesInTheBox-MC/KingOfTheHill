@@ -1,10 +1,10 @@
 package me.hsgamer.gamesinthebox.kingofthehill.state;
 
-import me.hsgamer.gamesinthebox.game.feature.PlannerFeature;
 import me.hsgamer.gamesinthebox.game.feature.PointFeature;
 import me.hsgamer.gamesinthebox.game.simple.feature.SimpleRewardFeature;
 import me.hsgamer.gamesinthebox.kingofthehill.KingOfTheHill;
 import me.hsgamer.gamesinthebox.kingofthehill.feature.CooldownFeature;
+import me.hsgamer.gamesinthebox.planner.feature.PlannerFeature;
 import me.hsgamer.gamesinthebox.util.GameUtil;
 import me.hsgamer.hscore.bukkit.utils.MessageUtils;
 import me.hsgamer.minigamecore.base.Arena;
