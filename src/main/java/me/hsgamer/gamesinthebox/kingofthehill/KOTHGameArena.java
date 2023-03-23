@@ -1,6 +1,5 @@
 package me.hsgamer.gamesinthebox.kingofthehill;
 
-import me.hsgamer.gamesinthebox.game.GameAction;
 import me.hsgamer.gamesinthebox.game.simple.SimpleGameArena;
 import me.hsgamer.gamesinthebox.game.simple.feature.SimpleBoundingFeature;
 import me.hsgamer.gamesinthebox.kingofthehill.feature.CooldownFeature;
@@ -17,12 +16,10 @@ import java.util.UUID;
 
 public class KOTHGameArena extends SimpleGameArena {
     private final KingOfTheHill expansion;
-    private final KOTHGameAction gameAction;
 
     public KOTHGameArena(KingOfTheHill expansion, String name, KOTHGame game, Planner planner) {
         super(name, game, planner);
         this.expansion = expansion;
-        this.gameAction = new KOTHGameAction(this);
     }
 
     @Override
@@ -49,7 +46,7 @@ public class KOTHGameArena extends SimpleGameArena {
     }
 
     @Override
-    protected List<String> getDefaultHologramLines(String name) {
+    public List<String> getDefaultHologramLines(String name) {
         return Optional.ofNullable(expansion.getMessageConfig().getDefaultHologramLines().get(name))
                 .map(CollectionUtils::createStringListFromObject)
                 .orElseGet(() -> super.getDefaultHologramLines(name));
@@ -66,14 +63,9 @@ public class KOTHGameArena extends SimpleGameArena {
     }
 
     @Override
-    public void forceEnd() {
+    public void end() {
         setNextState(IdlingState.class);
         getFeature(ParticleFeature.class).stop();
-    }
-
-    @Override
-    public GameAction getGameAction() {
-        return gameAction;
     }
 
     @Override

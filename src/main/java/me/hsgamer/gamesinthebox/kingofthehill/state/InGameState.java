@@ -6,7 +6,7 @@ import me.hsgamer.gamesinthebox.game.simple.feature.SimplePointFeature;
 import me.hsgamer.gamesinthebox.kingofthehill.KingOfTheHill;
 import me.hsgamer.gamesinthebox.kingofthehill.feature.CooldownFeature;
 import me.hsgamer.gamesinthebox.kingofthehill.feature.ParticleFeature;
-import me.hsgamer.gamesinthebox.util.GameUtil;
+import me.hsgamer.gamesinthebox.planner.feature.VariableFeature;
 import me.hsgamer.hscore.bukkit.utils.MessageUtils;
 import me.hsgamer.minigamecore.base.Arena;
 import me.hsgamer.minigamecore.base.GameState;
@@ -28,7 +28,7 @@ public class InGameState implements GameState, ColoredDisplayName {
 
     @Override
     public void start(Arena arena) {
-        String startMessage = GameUtil.replaceName(expansion.getMessageConfig().getStartBroadcast(), arena);
+        String startMessage = arena.getFeature(VariableFeature.class).replace(expansion.getMessageConfig().getStartBroadcast());
         Bukkit.getOnlinePlayers().forEach(player -> MessageUtils.sendMessage(player, startMessage));
         arena.getFeature(CooldownFeature.class).start(this);
         arena.getFeature(ParticleFeature.class).start();
@@ -46,7 +46,7 @@ public class InGameState implements GameState, ColoredDisplayName {
         List<UUID> playersToAdd = new ArrayList<>();
         for (Player player : Bukkit.getOnlinePlayers()) {
             UUID uuid = player.getUniqueId();
-            if (!player.isDead() && boundingFeature.checkBounding(uuid)) {
+            if (!player.isDead() && boundingFeature.checkBounding(player)) {
                 playersToAdd.add(uuid);
             } else {
                 pointFeature.removePoint(uuid);
