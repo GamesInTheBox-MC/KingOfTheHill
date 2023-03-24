@@ -17,7 +17,6 @@ import org.bukkit.Location;
 import org.bukkit.World;
 import org.bukkit.scheduler.BukkitTask;
 
-import java.util.Objects;
 import java.util.Optional;
 
 public class ParticleFeature implements Feature {
@@ -35,13 +34,11 @@ public class ParticleFeature implements Feature {
     public void postInit() {
         GameConfigFeature configFeature = arena.getFeature(GameConfigFeature.class);
         particle = ParticleDisplay.fromConfig(Util.createSection(configFeature.getValues("particle", false)));
-        rate = Optional.ofNullable(configFeature.get("particle.rate"))
-                .map(Objects::toString)
+        rate = Optional.ofNullable(configFeature.getString("particle.rate"))
                 .flatMap(Validate::getNumber)
                 .map(Number::doubleValue)
                 .orElse(rate);
-        period = Optional.ofNullable(configFeature.get("particle.period"))
-                .map(Objects::toString)
+        period = Optional.ofNullable(configFeature.getString("particle.period"))
                 .flatMap(Validate::getNumber)
                 .map(Number::longValue)
                 .orElse(period);

@@ -10,7 +10,6 @@ import me.hsgamer.minigamecore.base.Feature;
 import me.hsgamer.minigamecore.base.GameState;
 import me.hsgamer.minigamecore.implementation.feature.TimerFeature;
 
-import java.util.Objects;
 import java.util.Optional;
 
 public class CooldownFeature implements Feature {
@@ -28,16 +27,13 @@ public class CooldownFeature implements Feature {
     public void postInit() {
         GameConfigFeature configFeature = arena.getFeature(GameConfigFeature.class);
 
-        waitingTime = Optional.ofNullable(configFeature.get("time.waiting"))
-                .map(Objects::toString)
+        waitingTime = Optional.ofNullable(configFeature.getString("time.waiting"))
                 .map(TimeUtil::parseMillis)
                 .orElse(waitingTime);
-        inGameTime = Optional.ofNullable(configFeature.get("time.in-game"))
-                .map(Objects::toString)
+        inGameTime = Optional.ofNullable(configFeature.getString("time.in-game"))
                 .map(TimeUtil::parseMillis)
                 .orElse(inGameTime);
-        endingTime = Optional.ofNullable(configFeature.get("time.ending"))
-                .map(Objects::toString)
+        endingTime = Optional.ofNullable(configFeature.getString("time.ending"))
                 .map(TimeUtil::parseMillis)
                 .orElse(endingTime);
     }
