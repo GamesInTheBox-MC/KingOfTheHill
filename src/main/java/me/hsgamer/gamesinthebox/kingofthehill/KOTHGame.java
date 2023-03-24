@@ -1,6 +1,7 @@
 package me.hsgamer.gamesinthebox.kingofthehill;
 
 import me.hsgamer.gamesinthebox.game.simple.SimpleGame;
+import me.hsgamer.gamesinthebox.game.simple.SimpleGameEditor;
 import me.hsgamer.gamesinthebox.kingofthehill.state.EndingState;
 import me.hsgamer.gamesinthebox.kingofthehill.state.IdlingState;
 import me.hsgamer.gamesinthebox.kingofthehill.state.InGameState;
@@ -21,6 +22,11 @@ public class KOTHGame extends SimpleGame {
     @Override
     protected KOTHGameArena newArena(String name, Planner planner) {
         return new KOTHGameArena(expansion, name, this, planner);
+    }
+
+    @Override
+    protected SimpleGameEditor createEditor() {
+        return new KOTHGameEditor(this);
     }
 
     @Override
