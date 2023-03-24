@@ -1,6 +1,5 @@
 package me.hsgamer.gamesinthebox.kingofthehill.state;
 
-import me.hsgamer.gamesinthebox.game.simple.feature.SimpleUpdateFeature;
 import me.hsgamer.gamesinthebox.kingofthehill.KingOfTheHill;
 import me.hsgamer.gamesinthebox.kingofthehill.feature.CooldownFeature;
 import me.hsgamer.minigamecore.base.Arena;
@@ -24,11 +23,6 @@ public class IdlingState implements GameState, ColoredDisplayName {
         if (arena.getFeature(CooldownFeature.class).canStart()) {
             arena.setNextState(WaitingState.class);
         }
-    }
-
-    @Override
-    public void end(Arena arena) {
-        arena.getFeature(SimpleUpdateFeature.class).clearState();
     }
 
     @Override

@@ -2,6 +2,7 @@ package me.hsgamer.gamesinthebox.kingofthehill.state;
 
 import me.hsgamer.gamesinthebox.game.feature.PointFeature;
 import me.hsgamer.gamesinthebox.game.simple.feature.SimpleRewardFeature;
+import me.hsgamer.gamesinthebox.game.simple.feature.SimpleUpdateFeature;
 import me.hsgamer.gamesinthebox.kingofthehill.KingOfTheHill;
 import me.hsgamer.gamesinthebox.kingofthehill.feature.CooldownFeature;
 import me.hsgamer.gamesinthebox.planner.feature.PlannerFeature;
@@ -47,6 +48,7 @@ public class EndingState implements GameState, ColoredDisplayName {
     @Override
     public void end(Arena arena) {
         arena.getFeature(PlannerFeature.class).notifyFinished();
+        arena.getFeature(SimpleUpdateFeature.class).clearState();
     }
 
     @Override
