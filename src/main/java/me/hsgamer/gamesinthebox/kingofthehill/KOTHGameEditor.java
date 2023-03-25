@@ -1,7 +1,9 @@
 package me.hsgamer.gamesinthebox.kingofthehill;
 
+import me.hsgamer.gamesinthebox.game.GameArena;
 import me.hsgamer.gamesinthebox.game.simple.SimpleGameEditor;
 import me.hsgamer.gamesinthebox.game.simple.feature.SimpleBoundingFeature;
+import me.hsgamer.gamesinthebox.kingofthehill.feature.CooldownFeature;
 import me.hsgamer.hscore.bukkit.utils.MessageUtils;
 import org.bukkit.command.CommandSender;
 
@@ -155,5 +157,22 @@ public class KOTHGameEditor extends SimpleGameEditor {
         });
 
         return list;
+    }
+
+    @Override
+    public boolean migrate(CommandSender sender, GameArena gameArena) {
+        if (!(gameArena instanceof KOTHGameArena)) return false;
+
+        // BOUNDING
+        boundingFeatureEditor.migrate(gameArena.getFeature(SimpleBoundingFeature.class));
+
+        // COOLDOWN TIME
+        KOTHGameArena kothGameArena = (KOTHGameArena) gameArena;
+        CooldownFeature cooldownFeature = kothGameArena.getFeature(CooldownFeature.class);
+        waitingTime = Long.toString(cooldownFeature.getWaitingTime());
+        inGameTime = Long.toString(cooldownFeature.getInGameTime());
+        endingTime = Long.toString(cooldownFeature.getEndingTime());
+
+        return super.migrate(sender, gameArena);
     }
 }

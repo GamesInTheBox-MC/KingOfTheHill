@@ -56,4 +56,16 @@ public class CooldownFeature implements Feature {
     public boolean canStart() {
         return canStart;
     }
+
+    public long getWaitingTime() {
+        return waitingTime;
+    }
+
+    public long getInGameTime() {
+        return inGameTime;
+    }
+
+    public long getEndingTime() {
+        return endingTime;
+    }
 }
