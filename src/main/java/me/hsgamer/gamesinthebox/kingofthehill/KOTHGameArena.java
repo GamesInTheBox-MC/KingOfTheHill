@@ -10,6 +10,7 @@ import me.hsgamer.gamesinthebox.planner.Planner;
 import me.hsgamer.gamesinthebox.util.ActionBarUtil;
 import me.hsgamer.hscore.common.CollectionUtils;
 import me.hsgamer.minigamecore.base.Feature;
+import org.jetbrains.annotations.NotNull;
 
 import java.util.List;
 import java.util.Optional;
@@ -24,7 +25,7 @@ public class KOTHGameArena extends SimpleGameArena {
     }
 
     @Override
-    protected void onPointChanged(UUID uuid, int point, int totalPoints) {
+    protected void onPointChanged(@NotNull UUID uuid, int point, int totalPoints) {
         if (point == 0) return;
 
         String message = point < 0 ? expansion.getMessageConfig().getPointMinus() : expansion.getMessageConfig().getPointPlus();
@@ -48,7 +49,7 @@ public class KOTHGameArena extends SimpleGameArena {
     }
 
     @Override
-    public List<String> getDefaultHologramLines(String name) {
+    public @NotNull List<String> getDefaultHologramLines(@NotNull String name) {
         return Optional.ofNullable(expansion.getMessageConfig().getDefaultHologramLines().get(name))
                 .map(CollectionUtils::createStringListFromObject)
                 .orElseGet(() -> super.getDefaultHologramLines(name));

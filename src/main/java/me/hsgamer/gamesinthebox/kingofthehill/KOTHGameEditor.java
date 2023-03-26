@@ -6,6 +6,7 @@ import me.hsgamer.gamesinthebox.game.simple.feature.SimpleBoundingFeature;
 import me.hsgamer.gamesinthebox.kingofthehill.feature.CooldownFeature;
 import me.hsgamer.hscore.bukkit.utils.MessageUtils;
 import org.bukkit.command.CommandSender;
+import org.jetbrains.annotations.NotNull;
 
 import java.util.*;
 
@@ -20,7 +21,7 @@ public class KOTHGameEditor extends SimpleGameEditor {
     }
 
     @Override
-    protected Map<String, SimpleAction> createActionMap() {
+    protected @NotNull Map<String, SimpleAction> createActionMap() {
         Map<String, SimpleAction> map = super.createActionMap();
 
         map.putAll(boundingFeatureEditor.getActions());
@@ -28,17 +29,17 @@ public class KOTHGameEditor extends SimpleGameEditor {
         // COOLDOWN TIME
         map.put("set-waiting-time", new SimpleAction() {
             @Override
-            public String getDescription() {
+            public @NotNull String getDescription() {
                 return "Set the waiting time";
             }
 
             @Override
-            public String getArgsUsage() {
+            public @NotNull String getArgsUsage() {
                 return "<time>";
             }
 
             @Override
-            public List<String> getActionArgs(CommandSender sender, String... args) {
+            public @NotNull List<String> getActionArgs(@NotNull CommandSender sender, String... args) {
                 if (args.length == 1) {
                     return Arrays.asList("1s", "1m", "1h");
                 }
@@ -46,7 +47,7 @@ public class KOTHGameEditor extends SimpleGameEditor {
             }
 
             @Override
-            public boolean performAction(CommandSender sender, String... args) {
+            public boolean performAction(@NotNull CommandSender sender, String... args) {
                 if (args.length >= 1) {
                     waitingTime = args[0];
                     return true;
@@ -56,17 +57,17 @@ public class KOTHGameEditor extends SimpleGameEditor {
         });
         map.put("set-in-game-time", new SimpleAction() {
             @Override
-            public String getDescription() {
+            public @NotNull String getDescription() {
                 return "Set the in-game time";
             }
 
             @Override
-            public String getArgsUsage() {
+            public @NotNull String getArgsUsage() {
                 return "<time>";
             }
 
             @Override
-            public List<String> getActionArgs(CommandSender sender, String... args) {
+            public @NotNull List<String> getActionArgs(@NotNull CommandSender sender, String... args) {
                 if (args.length == 1) {
                     return Arrays.asList("1s", "1m", "1h");
                 }
@@ -74,7 +75,7 @@ public class KOTHGameEditor extends SimpleGameEditor {
             }
 
             @Override
-            public boolean performAction(CommandSender sender, String... args) {
+            public boolean performAction(@NotNull CommandSender sender, String... args) {
                 if (args.length >= 1) {
                     inGameTime = args[0];
                     return true;
@@ -84,17 +85,17 @@ public class KOTHGameEditor extends SimpleGameEditor {
         });
         map.put("set-ending-time", new SimpleAction() {
             @Override
-            public String getDescription() {
+            public @NotNull String getDescription() {
                 return "Set the ending time";
             }
 
             @Override
-            public String getArgsUsage() {
+            public @NotNull String getArgsUsage() {
                 return "<time>";
             }
 
             @Override
-            public List<String> getActionArgs(CommandSender sender, String... args) {
+            public @NotNull List<String> getActionArgs(@NotNull CommandSender sender, String... args) {
                 if (args.length == 1) {
                     return Arrays.asList("1s", "1m", "1h");
                 }
@@ -102,7 +103,7 @@ public class KOTHGameEditor extends SimpleGameEditor {
             }
 
             @Override
-            public boolean performAction(CommandSender sender, String... args) {
+            public boolean performAction(@NotNull CommandSender sender, String... args) {
                 if (args.length >= 1) {
                     endingTime = args[0];
                     return true;
@@ -115,13 +116,13 @@ public class KOTHGameEditor extends SimpleGameEditor {
     }
 
     @Override
-    protected List<SimpleEditorStatus> createEditorStatusList() {
+    protected @NotNull List<SimpleEditorStatus> createEditorStatusList() {
         List<SimpleEditorStatus> list = super.createEditorStatusList();
 
         list.add(boundingFeatureEditor.getStatus());
         list.add(new SimpleEditorStatus() {
             @Override
-            public void sendStatus(CommandSender sender) {
+            public void sendStatus(@NotNull CommandSender sender) {
                 MessageUtils.sendMessage(sender, "&6&lCOOLDOWN TIME");
                 MessageUtils.sendMessage(sender, "&6Waiting time: &e" + (waitingTime == null ? "Default" : waitingTime));
                 MessageUtils.sendMessage(sender, "&6In-game time: &e" + (inGameTime == null ? "Default" : inGameTime));
@@ -129,19 +130,19 @@ public class KOTHGameEditor extends SimpleGameEditor {
             }
 
             @Override
-            public void reset(CommandSender sender) {
+            public void reset(@NotNull CommandSender sender) {
                 waitingTime = null;
                 inGameTime = null;
                 endingTime = null;
             }
 
             @Override
-            public boolean canSave(CommandSender sender) {
+            public boolean canSave(@NotNull CommandSender sender) {
                 return true;
             }
 
             @Override
-            public Map<String, Object> toPathValueMap(CommandSender sender) {
+            public Map<String, Object> toPathValueMap(@NotNull CommandSender sender) {
                 Map<String, Object> map = new LinkedHashMap<>();
                 if (waitingTime != null) {
                     map.put("time.waiting", waitingTime);
@@ -160,7 +161,7 @@ public class KOTHGameEditor extends SimpleGameEditor {
     }
 
     @Override
-    public boolean migrate(CommandSender sender, GameArena gameArena) {
+    public boolean migrate(@NotNull CommandSender sender, @NotNull GameArena gameArena) {
         if (!(gameArena instanceof KOTHGameArena)) return false;
 
         // BOUNDING

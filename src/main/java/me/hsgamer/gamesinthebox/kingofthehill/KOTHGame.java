@@ -8,6 +8,7 @@ import me.hsgamer.gamesinthebox.kingofthehill.state.InGameState;
 import me.hsgamer.gamesinthebox.kingofthehill.state.WaitingState;
 import me.hsgamer.gamesinthebox.planner.Planner;
 import me.hsgamer.minigamecore.base.GameState;
+import org.jetbrains.annotations.NotNull;
 
 import java.util.Arrays;
 import java.util.List;
@@ -20,17 +21,17 @@ public class KOTHGame extends SimpleGame {
     }
 
     @Override
-    protected KOTHGameArena newArena(String name, Planner planner) {
+    protected @NotNull KOTHGameArena newArena(@NotNull String name, @NotNull Planner planner) {
         return new KOTHGameArena(expansion, name, this, planner);
     }
 
     @Override
-    protected SimpleGameEditor createEditor() {
+    protected @NotNull SimpleGameEditor createEditor() {
         return new KOTHGameEditor(this);
     }
 
     @Override
-    public String getDisplayName() {
+    public @NotNull String getDisplayName() {
         return expansion.getMessageConfig().getDisplayName();
     }
 

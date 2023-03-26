@@ -5,6 +5,7 @@ import me.hsgamer.gamesinthebox.expansion.extra.Reloadable;
 import me.hsgamer.gamesinthebox.game.Game;
 import me.hsgamer.hscore.bukkit.config.BukkitConfig;
 import me.hsgamer.hscore.config.proxy.ConfigGenerator;
+import org.jetbrains.annotations.NotNull;
 
 import java.io.File;
 
@@ -13,12 +14,12 @@ public class KingOfTheHill extends SingleGameExpansion implements Reloadable {
     private final KOTHMessageConfig messageConfig = ConfigGenerator.newInstance(KOTHMessageConfig.class, new BukkitConfig(new File(getDataFolder(), "messages.yml")));
 
     @Override
-    protected Game getGame() {
+    protected @NotNull Game getGame() {
         return new KOTHGame(this);
     }
 
     @Override
-    protected String[] getGameType() {
+    protected String @NotNull [] getGameType() {
         return new String[]{"king-of-the-hill", "koth"};
     }
 
