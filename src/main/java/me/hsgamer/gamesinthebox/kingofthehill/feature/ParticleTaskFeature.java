@@ -7,6 +7,7 @@ import me.hsgamer.gamesinthebox.game.feature.GameConfigFeature;
 import me.hsgamer.gamesinthebox.game.simple.feature.SimpleParticleFeature;
 import me.hsgamer.gamesinthebox.kingofthehill.KOTHGameArena;
 import me.hsgamer.gamesinthebox.planner.feature.PluginFeature;
+import me.hsgamer.gamesinthebox.util.TaskUtil;
 import me.hsgamer.hscore.bukkit.block.BukkitBlockAdapter;
 import me.hsgamer.hscore.common.Validate;
 import me.hsgamer.hscore.minecraft.block.box.BlockBox;
@@ -53,10 +54,8 @@ public class ParticleTaskFeature implements Feature {
     }
 
     public void stop() {
-        if (task != null) {
-            task.cancel();
-            task = null;
-        }
+        TaskUtil.cancelSafe(task);
+        task = null;
     }
 
     @Override
