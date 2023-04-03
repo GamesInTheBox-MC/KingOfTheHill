@@ -9,14 +9,14 @@ import me.hsgamer.gamesinthebox.kingofthehill.KOTHGameArena;
 import me.hsgamer.gamesinthebox.planner.feature.PluginFeature;
 import me.hsgamer.gamesinthebox.util.TaskUtil;
 import me.hsgamer.hscore.bukkit.block.BukkitBlockAdapter;
+import me.hsgamer.hscore.bukkit.scheduler.Scheduler;
+import me.hsgamer.hscore.bukkit.scheduler.Task;
 import me.hsgamer.hscore.common.Validate;
 import me.hsgamer.hscore.minecraft.block.box.BlockBox;
 import me.hsgamer.hscore.minecraft.block.box.Position;
 import me.hsgamer.minigamecore.base.Feature;
-import org.bukkit.Bukkit;
 import org.bukkit.Location;
 import org.bukkit.World;
-import org.bukkit.scheduler.BukkitTask;
 
 import java.util.Optional;
 
@@ -24,7 +24,7 @@ public class ParticleTaskFeature implements Feature {
     private final KOTHGameArena arena;
     private double rate = 0.1;
     private long period = 0;
-    private BukkitTask task;
+    private Task task;
 
     public ParticleTaskFeature(KOTHGameArena arena) {
         this.arena = arena;
@@ -50,7 +50,7 @@ public class ParticleTaskFeature implements Feature {
         Location start = BukkitBlockAdapter.adapt(world, new Position(box.minX, box.minY, box.minZ));
         Location end = BukkitBlockAdapter.adapt(world, new Position(box.maxX, box.maxY, box.maxZ));
         ParticleDisplay particleDisplay = arena.getFeature(SimpleParticleFeature.class).getParticleDisplay();
-        task = Bukkit.getScheduler().runTaskTimerAsynchronously(arena.getPlanner().getFeature(PluginFeature.class).getPlugin(), () -> XParticle.structuredCube(start, end, rate, particleDisplay), period, period);
+        task = Scheduler.CURRENT.runTaskTimer(arena.getPlanner().getFeature(PluginFeature.class).getPlugin(), () -> XParticle.structuredCube(start, end, rate, particleDisplay), period, period, true);
     }
 
     public void stop() {
