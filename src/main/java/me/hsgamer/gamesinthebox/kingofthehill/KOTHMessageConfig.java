@@ -12,16 +12,6 @@ public interface KOTHMessageConfig {
         return "King of the Hill";
     }
 
-    @ConfigPath("point.plus")
-    default String getPointPlus() {
-        return "&a+{point} point(s) &7({total})";
-    }
-
-    @ConfigPath("point.minus")
-    default String getPointMinus() {
-        return "&c-{point} point(s) &7({total})";
-    }
-
     @ConfigPath("default-hologram-lines")
     default Map<String, Object> getDefaultHologramLines() {
         Map<String, Object> map = new LinkedHashMap<>();
@@ -47,36 +37,6 @@ public interface KOTHMessageConfig {
                 "&fTime left: &a{game_time_left}"
         ));
         return map;
-    }
-
-    @ConfigPath("state.waiting")
-    default String getStateWaiting() {
-        return "Waiting";
-    }
-
-    @ConfigPath("state.in-game")
-    default String getStateInGame() {
-        return "In Game";
-    }
-
-    @ConfigPath("state.ending")
-    default String getStateEnding() {
-        return "Ending";
-    }
-
-    @ConfigPath("state.idle")
-    default String getStateIdle() {
-        return "Idle";
-    }
-
-    @ConfigPath("start-broadcast")
-    default String getStartBroadcast() {
-        return "&aThe game has started!";
-    }
-
-    @ConfigPath("end-broadcast")
-    default String getEndBroadcast() {
-        return "&aThe game has ended!";
     }
 
     @ConfigPath("not-enough-player-to-reward")

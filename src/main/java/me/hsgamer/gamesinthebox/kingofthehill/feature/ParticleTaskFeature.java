@@ -4,8 +4,8 @@ import com.cryptomorin.xseries.particles.ParticleDisplay;
 import com.cryptomorin.xseries.particles.XParticle;
 import me.hsgamer.gamesinthebox.game.feature.BoundingFeature;
 import me.hsgamer.gamesinthebox.game.feature.GameConfigFeature;
+import me.hsgamer.gamesinthebox.game.simple.SimpleGameArena;
 import me.hsgamer.gamesinthebox.game.simple.feature.SimpleParticleFeature;
-import me.hsgamer.gamesinthebox.kingofthehill.KOTHGameArena;
 import me.hsgamer.gamesinthebox.planner.feature.PluginFeature;
 import me.hsgamer.gamesinthebox.util.TaskUtil;
 import me.hsgamer.hscore.bukkit.block.BukkitBlockAdapter;
@@ -21,12 +21,12 @@ import org.bukkit.World;
 import java.util.Optional;
 
 public class ParticleTaskFeature implements Feature {
-    private final KOTHGameArena arena;
+    private final SimpleGameArena arena;
     private double rate = 0.1;
     private long period = 0;
     private Task task;
 
-    public ParticleTaskFeature(KOTHGameArena arena) {
+    public ParticleTaskFeature(SimpleGameArena arena) {
         this.arena = arena;
     }
 
