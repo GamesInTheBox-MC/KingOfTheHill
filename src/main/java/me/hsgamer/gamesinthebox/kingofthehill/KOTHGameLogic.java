@@ -14,8 +14,6 @@ import me.hsgamer.hscore.bukkit.utils.MessageUtils;
 import me.hsgamer.minigamecore.base.Feature;
 import org.bukkit.Bukkit;
 import org.bukkit.entity.Player;
-import org.jetbrains.annotations.NotNull;
-import org.jetbrains.annotations.Nullable;
 
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -80,10 +78,5 @@ public class KOTHGameLogic extends TemplateGameArenaLogic {
     @Override
     public void forceEnd() {
         arena.getFeature(ParticleTaskFeature.class).stop();
-    }
-
-    @Override
-    public @Nullable String replace(@NotNull String input) {
-        return null;
     }
 }
