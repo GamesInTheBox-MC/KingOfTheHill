@@ -1,6 +1,10 @@
 package me.hsgamer.gamesinthebox.kingofthehill;
 
-import me.hsgamer.gamesinthebox.game.template.*;
+import me.hsgamer.gamesinthebox.game.template.TemplateGame;
+import me.hsgamer.gamesinthebox.game.template.TemplateGameArena;
+import me.hsgamer.gamesinthebox.game.template.TemplateGameArenaLogic;
+import me.hsgamer.gamesinthebox.game.template.TemplateGameEditor;
+import me.hsgamer.gamesinthebox.game.template.expansion.TemplateGameExpansion;
 import me.hsgamer.hscore.bukkit.config.BukkitConfig;
 import me.hsgamer.hscore.common.CollectionUtils;
 import me.hsgamer.hscore.config.proxy.ConfigGenerator;
