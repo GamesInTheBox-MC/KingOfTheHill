@@ -1,6 +1,7 @@
 package me.hsgamer.gamesinthebox.kingofthehill;
 
 import me.hsgamer.gamesinthebox.game.feature.BoundingFeature;
+import me.hsgamer.gamesinthebox.game.feature.GameConfigFeature;
 import me.hsgamer.gamesinthebox.game.feature.PointFeature;
 import me.hsgamer.gamesinthebox.game.simple.feature.SimpleBoundingFeature;
 import me.hsgamer.gamesinthebox.game.simple.feature.SimpleParticleFeature;
@@ -11,21 +12,24 @@ import me.hsgamer.gamesinthebox.game.template.TemplateGameArenaLogic;
 import me.hsgamer.gamesinthebox.kingofthehill.feature.ParticleTaskFeature;
 import me.hsgamer.gamesinthebox.planner.feature.VariableFeature;
 import me.hsgamer.hscore.bukkit.utils.MessageUtils;
+import me.hsgamer.hscore.common.Validate;
 import me.hsgamer.minigamecore.base.Feature;
 import org.bukkit.Bukkit;
 import org.bukkit.entity.Player;
 
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.List;
-import java.util.UUID;
+import java.util.*;
 
 public class KOTHGameLogic extends TemplateGameArenaLogic {
     private final KingOfTheHill expansion;
+    private int minPlayersToAddPoint = -1;
 
     public KOTHGameLogic(KingOfTheHill expansion, TemplateGameArena arena) {
         super(arena);
         this.expansion = expansion;
+    }
+
+    public int getMinPlayersToAddPoint() {
+        return minPlayersToAddPoint;
     }
 
     @Override
@@ -35,6 +39,15 @@ public class KOTHGameLogic extends TemplateGameArenaLogic {
                 new ParticleTaskFeature(arena),
                 new SimpleParticleFeature(arena)
         );
+    }
+
+    @Override
+    public void postInit() {
+        minPlayersToAddPoint = Optional.ofNullable(arena.getFeature(GameConfigFeature.class))
+                .map(gameConfigFeature -> gameConfigFeature.getString("min-players-to-add-point"))
+                .flatMap(Validate::getNumber)
+                .map(Number::intValue)
+                .orElse(minPlayersToAddPoint);
     }
 
     @Override
@@ -53,11 +66,11 @@ public class KOTHGameLogic extends TemplateGameArenaLogic {
             if (!player.isDead() && boundingFeature.checkBounding(player)) {
                 playersToAdd.add(uuid);
             } else {
-                pointFeature.removePoint(uuid);
+                pointFeature.applyPoint(uuid, KingOfTheHill.POINT_MINUS);
             }
         }
-        if (!playersToAdd.isEmpty()) {
-            pointFeature.tryAddPoint(playersToAdd);
+        if (!playersToAdd.isEmpty() && (minPlayersToAddPoint < 0 || playersToAdd.size() >= minPlayersToAddPoint)) {
+            pointFeature.applyPoint(playersToAdd, KingOfTheHill.POINT_PLUS);
         }
     }
 
