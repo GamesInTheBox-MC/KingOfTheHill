@@ -13,7 +13,7 @@ import org.jetbrains.annotations.NotNull;
 import java.util.*;
 
 public class KOTHGameEditor extends TemplateGameEditor {
-    private final SimpleBoundingFeature.Editor boundingFeatureEditor = SimpleBoundingFeature.editor();
+    private final SimpleBoundingFeature.Editor boundingFeatureEditor = SimpleBoundingFeature.editor(true);
     private int minPlayersToAddPoint = -1;
 
     public KOTHGameEditor(@NotNull TemplateGame game) {
