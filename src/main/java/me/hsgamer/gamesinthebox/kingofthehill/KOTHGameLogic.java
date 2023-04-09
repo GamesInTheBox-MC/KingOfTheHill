@@ -16,6 +16,8 @@ import me.hsgamer.hscore.common.Validate;
 import me.hsgamer.minigamecore.base.Feature;
 import org.bukkit.Bukkit;
 import org.bukkit.entity.Player;
+import org.jetbrains.annotations.NotNull;
+import org.jetbrains.annotations.Nullable;
 
 import java.util.*;
 
@@ -48,6 +50,14 @@ public class KOTHGameLogic extends TemplateGameArenaLogic {
                 .flatMap(Validate::getNumber)
                 .map(Number::intValue)
                 .orElse(minPlayersToAddPoint);
+    }
+
+    @Override
+    public @Nullable String replace(@NotNull String input) {
+        if (input.equalsIgnoreCase("min_players_to_add_point")) {
+            return String.valueOf(minPlayersToAddPoint);
+        }
+        return null;
     }
 
     @Override
