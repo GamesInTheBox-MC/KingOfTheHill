@@ -24,7 +24,7 @@ public class KingOfTheHill extends TemplateGameExpansion {
 
     @Override
     public TemplateGameArenaLogic createArenaLogic(TemplateGameArena arena) {
-        return new KOTHGameLogic(this, arena);
+        return new KOTHGameLogic(arena);
     }
 
     @Override

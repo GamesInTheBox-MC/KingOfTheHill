@@ -10,8 +10,6 @@ import me.hsgamer.gamesinthebox.game.simple.feature.SimpleRewardFeature;
 import me.hsgamer.gamesinthebox.game.template.TemplateGameArena;
 import me.hsgamer.gamesinthebox.game.template.TemplateGameArenaLogic;
 import me.hsgamer.gamesinthebox.kingofthehill.feature.ParticleTaskFeature;
-import me.hsgamer.gamesinthebox.planner.feature.VariableFeature;
-import me.hsgamer.hscore.bukkit.utils.MessageUtils;
 import me.hsgamer.hscore.common.Validate;
 import me.hsgamer.minigamecore.base.Feature;
 import org.bukkit.Bukkit;
@@ -22,12 +20,10 @@ import org.jetbrains.annotations.Nullable;
 import java.util.*;
 
 public class KOTHGameLogic extends TemplateGameArenaLogic {
-    private final KingOfTheHill expansion;
     private int minPlayersToAddPoint = -1;
 
-    public KOTHGameLogic(KingOfTheHill expansion, TemplateGameArena arena) {
+    public KOTHGameLogic(TemplateGameArena arena) {
         super(arena);
-        this.expansion = expansion;
     }
 
     public int getMinPlayersToAddPoint() {
@@ -92,10 +88,7 @@ public class KOTHGameLogic extends TemplateGameArenaLogic {
     @Override
     public void onEndingStart() {
         List<UUID> topList = arena.getFeature(PointFeature.class).getTopUUID();
-        if (!arena.getFeature(SimpleRewardFeature.class).tryReward(topList)) {
-            String notEnoughPlayerMessage = arena.getFeature(VariableFeature.class).replace(expansion.getMessageConfig().getNotEnoughPlayerToReward());
-            Bukkit.getOnlinePlayers().forEach(player -> MessageUtils.sendMessage(player, notEnoughPlayerMessage));
-        }
+        arena.getFeature(SimpleRewardFeature.class).tryReward(topList);
     }
 
     @Override
