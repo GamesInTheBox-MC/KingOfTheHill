@@ -12,12 +12,15 @@ import me.hsgamer.gamesinthebox.game.template.TemplateGameArenaLogic;
 import me.hsgamer.gamesinthebox.kingofthehill.feature.ParticleTaskFeature;
 import me.hsgamer.hscore.common.Validate;
 import me.hsgamer.minigamecore.base.Feature;
-import org.bukkit.Bukkit;
 import org.bukkit.entity.Player;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 
-import java.util.*;
+import java.util.Arrays;
+import java.util.List;
+import java.util.Optional;
+import java.util.UUID;
+import java.util.stream.Collectors;
 
 public class KOTHGameLogic extends TemplateGameArenaLogic {
     private int minPlayersToAddPoint = -1;
@@ -66,15 +69,19 @@ public class KOTHGameLogic extends TemplateGameArenaLogic {
         BoundingFeature boundingFeature = arena.getFeature(BoundingFeature.class);
         SimplePointFeature pointFeature = arena.getFeature(SimplePointFeature.class);
         arena.getFeature(PointFeature.class).resetPointIfNotOnline();
-        List<UUID> playersToAdd = new ArrayList<>();
-        for (Player player : Bukkit.getOnlinePlayers()) {
-            UUID uuid = player.getUniqueId();
-            if (!player.isDead() && boundingFeature.checkBounding(player)) {
-                playersToAdd.add(uuid);
-            } else {
-                pointFeature.applyPoint(uuid, KingOfTheHill.POINT_MINUS);
-            }
-        }
+
+        List<UUID> playersToAdd = boundingFeature.getEntities().stream()
+                .filter(Player.class::isInstance)
+                .map(Player.class::cast)
+                .filter(player -> !player.isDead())
+                .map(Player::getUniqueId)
+                .collect(Collectors.toList());
+
+        pointFeature.getPoints().keySet()
+                .stream()
+                .filter(uuid -> !playersToAdd.contains(uuid))
+                .forEach(uuid -> pointFeature.applyPoint(uuid, KingOfTheHill.POINT_MINUS));
+
         if (!playersToAdd.isEmpty() && (minPlayersToAddPoint < 0 || playersToAdd.size() >= minPlayersToAddPoint)) {
             pointFeature.applyPoint(playersToAdd, KingOfTheHill.POINT_PLUS);
         }
