@@ -76,15 +76,15 @@ public class KOTHGameLogic extends TemplateGameArenaLogic {
                 .filter(player -> !player.isDead())
                 .map(Player::getUniqueId)
                 .collect(Collectors.toList());
-
-        pointFeature.getPoints().keySet()
-                .stream()
-                .filter(uuid -> !playersToAdd.contains(uuid))
-                .forEach(uuid -> pointFeature.applyPoint(uuid, KingOfTheHill.POINT_MINUS));
-
         if (!playersToAdd.isEmpty() && (minPlayersToAddPoint < 0 || playersToAdd.size() >= minPlayersToAddPoint)) {
             pointFeature.applyPoint(playersToAdd, KingOfTheHill.POINT_PLUS);
         }
+
+        List<UUID> playersToMinus = pointFeature.getPoints().keySet()
+                .stream()
+                .filter(uuid -> !playersToAdd.contains(uuid))
+                .collect(Collectors.toList());
+        pointFeature.applyPoint(playersToMinus, KingOfTheHill.POINT_MINUS);
     }
 
     @Override
