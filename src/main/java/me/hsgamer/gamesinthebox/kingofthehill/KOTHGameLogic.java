@@ -10,6 +10,7 @@ import me.hsgamer.gamesinthebox.game.simple.feature.SimpleRewardFeature;
 import me.hsgamer.gamesinthebox.game.template.TemplateGameArena;
 import me.hsgamer.gamesinthebox.game.template.TemplateGameArenaLogic;
 import me.hsgamer.gamesinthebox.kingofthehill.feature.ParticleTaskFeature;
+import me.hsgamer.hscore.common.Pair;
 import me.hsgamer.hscore.common.Validate;
 import me.hsgamer.minigamecore.base.Feature;
 import org.bukkit.entity.Player;
@@ -70,7 +71,7 @@ public class KOTHGameLogic extends TemplateGameArenaLogic {
         SimplePointFeature pointFeature = arena.getFeature(SimplePointFeature.class);
         arena.getFeature(PointFeature.class).resetPointIfNotOnline();
 
-        List<UUID> playersToAdd = boundingFeature.getEntities().stream()
+        List<UUID> playersToAdd = boundingFeature.getEntities()
                 .filter(Player.class::isInstance)
                 .map(Player.class::cast)
                 .filter(player -> !player.isDead())
@@ -80,8 +81,8 @@ public class KOTHGameLogic extends TemplateGameArenaLogic {
             pointFeature.applyPoint(playersToAdd, KingOfTheHill.POINT_PLUS);
         }
 
-        List<UUID> playersToMinus = pointFeature.getPoints().keySet()
-                .stream()
+        List<UUID> playersToMinus = pointFeature.getPoints()
+                .map(Pair::getKey)
                 .filter(uuid -> !playersToAdd.contains(uuid))
                 .collect(Collectors.toList());
         pointFeature.applyPoint(playersToMinus, KingOfTheHill.POINT_MINUS);
@@ -94,7 +95,7 @@ public class KOTHGameLogic extends TemplateGameArenaLogic {
 
     @Override
     public void onEndingStart() {
-        List<UUID> topList = arena.getFeature(PointFeature.class).getTopUUID();
+        List<UUID> topList = arena.getFeature(PointFeature.class).getTopUUID().collect(Collectors.toList());
         arena.getFeature(SimpleRewardFeature.class).tryReward(topList);
     }
 
