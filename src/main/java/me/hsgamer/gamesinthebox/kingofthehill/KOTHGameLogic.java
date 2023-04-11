@@ -13,6 +13,7 @@ import me.hsgamer.gamesinthebox.kingofthehill.feature.ParticleTaskFeature;
 import me.hsgamer.hscore.common.Pair;
 import me.hsgamer.hscore.common.Validate;
 import me.hsgamer.minigamecore.base.Feature;
+import org.bukkit.Bukkit;
 import org.bukkit.entity.Player;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
@@ -71,10 +72,9 @@ public class KOTHGameLogic extends TemplateGameArenaLogic {
         SimplePointFeature pointFeature = arena.getFeature(SimplePointFeature.class);
         arena.getFeature(PointFeature.class).resetPointIfNotOnline();
 
-        List<UUID> playersToAdd = boundingFeature.getEntities()
-                .filter(Player.class::isInstance)
-                .map(Player.class::cast)
-                .filter(player -> !player.isDead())
+        List<UUID> playersToAdd = Bukkit.getOnlinePlayers()
+                .stream()
+                .filter(player -> !player.isDead() && boundingFeature.checkBounding(player))
                 .map(Player::getUniqueId)
                 .collect(Collectors.toList());
         if (!playersToAdd.isEmpty() && (minPlayersToAddPoint < 0 || playersToAdd.size() >= minPlayersToAddPoint)) {
