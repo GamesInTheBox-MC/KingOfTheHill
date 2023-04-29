@@ -6,7 +6,6 @@ import me.hsgamer.gamesinthebox.game.feature.BoundingFeature;
 import me.hsgamer.gamesinthebox.game.feature.GameConfigFeature;
 import me.hsgamer.gamesinthebox.game.simple.SimpleGameArena;
 import me.hsgamer.gamesinthebox.game.simple.feature.SimpleParticleFeature;
-import me.hsgamer.gamesinthebox.planner.feature.PluginFeature;
 import me.hsgamer.gamesinthebox.util.TaskUtil;
 import me.hsgamer.hscore.bukkit.block.BukkitBlockAdapter;
 import me.hsgamer.hscore.bukkit.scheduler.Scheduler;
@@ -46,11 +45,11 @@ public class ParticleTaskFeature implements Feature {
     public void start() {
         BoundingFeature boundingFeature = arena.getFeature(BoundingFeature.class);
         World world = boundingFeature.getWorld();
-        BlockBox box = boundingFeature.getBlockBox();
+        BlockBox box = boundingFeature.getBlockBox().maxInclusive();
         Location start = BukkitBlockAdapter.adapt(world, new Position(box.minX, box.minY, box.minZ));
         Location end = BukkitBlockAdapter.adapt(world, new Position(box.maxX, box.maxY, box.maxZ));
         ParticleDisplay particleDisplay = arena.getFeature(SimpleParticleFeature.class).getParticleDisplay();
-        task = Scheduler.CURRENT.runTaskTimer(arena.getPlanner().getFeature(PluginFeature.class).getPlugin(), () -> XParticle.structuredCube(start, end, rate, particleDisplay), period, period, true);
+        task = Scheduler.current().async().runTaskTimer(() -> XParticle.structuredCube(start, end, rate, particleDisplay), period, period);
     }
 
     public void stop() {

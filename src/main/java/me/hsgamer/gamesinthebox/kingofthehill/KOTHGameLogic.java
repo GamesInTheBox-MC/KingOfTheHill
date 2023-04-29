@@ -38,7 +38,7 @@ public class KOTHGameLogic extends TemplateGameArenaLogic {
     @Override
     public List<Feature> loadFeatures() {
         return Arrays.asList(
-                new SimpleBoundingFeature(arena, true),
+                new SimpleBoundingFeature(arena),
                 new ParticleTaskFeature(arena),
                 new SimpleParticleFeature(arena)
         );
@@ -74,7 +74,7 @@ public class KOTHGameLogic extends TemplateGameArenaLogic {
 
         List<UUID> playersToAdd = Bukkit.getOnlinePlayers()
                 .stream()
-                .filter(player -> !player.isDead() && boundingFeature.checkBounding(player))
+                .filter(player -> !player.isDead() && boundingFeature.checkBounding(player, true))
                 .map(Player::getUniqueId)
                 .collect(Collectors.toList());
         if (!playersToAdd.isEmpty() && (minPlayersToAddPoint < 0 || playersToAdd.size() >= minPlayersToAddPoint)) {
