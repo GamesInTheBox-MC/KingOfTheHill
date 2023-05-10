@@ -61,4 +61,12 @@ public class ParticleTaskFeature implements Feature {
     public void clear() {
         stop();
     }
+
+    public double getRate() {
+        return rate;
+    }
+
+    public long getPeriod() {
+        return period;
+    }
 }
