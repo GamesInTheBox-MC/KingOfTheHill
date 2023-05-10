@@ -3,6 +3,7 @@ package me.hsgamer.gamesinthebox.kingofthehill;
 import me.hsgamer.gamesinthebox.game.GameArena;
 import me.hsgamer.gamesinthebox.game.simple.action.NumberAction;
 import me.hsgamer.gamesinthebox.game.simple.feature.SimpleBoundingFeature;
+import me.hsgamer.gamesinthebox.game.simple.feature.SimpleParticleFeature;
 import me.hsgamer.gamesinthebox.game.template.TemplateGame;
 import me.hsgamer.gamesinthebox.game.template.TemplateGameEditor;
 import me.hsgamer.gamesinthebox.game.template.feature.ArenaLogicFeature;
@@ -14,6 +15,7 @@ import java.util.*;
 
 public class KOTHGameEditor extends TemplateGameEditor {
     private final SimpleBoundingFeature.Editor boundingFeatureEditor = SimpleBoundingFeature.editor(true);
+    private final SimpleParticleFeature.Editor particleFeatureEditor = SimpleParticleFeature.editor();
     private int minPlayersToAddPoint = -1;
 
     public KOTHGameEditor(@NotNull TemplateGame game) {
@@ -24,6 +26,7 @@ public class KOTHGameEditor extends TemplateGameEditor {
     protected @NotNull Map<String, SimpleAction> createActionMap() {
         Map<String, SimpleAction> map = super.createActionMap();
         map.putAll(boundingFeatureEditor.getActions());
+        map.putAll(particleFeatureEditor.getActions());
         map.put("set-min-players-to-add-point", new NumberAction() {
             @Override
             protected boolean performAction(@NotNull CommandSender sender, @NotNull Number value, String... args) {
@@ -48,6 +51,7 @@ public class KOTHGameEditor extends TemplateGameEditor {
     protected @NotNull List<SimpleEditorStatus> createEditorStatusList() {
         List<SimpleEditorStatus> list = super.createEditorStatusList();
         list.add(boundingFeatureEditor.getStatus());
+        list.add(particleFeatureEditor.getStatus());
         list.add(new SimpleEditorStatus() {
             @Override
             public void sendStatus(@NotNull CommandSender sender) {
@@ -76,6 +80,7 @@ public class KOTHGameEditor extends TemplateGameEditor {
     @Override
     public boolean migrate(@NotNull CommandSender sender, @NotNull GameArena gameArena) {
         Optional.ofNullable(gameArena.getFeature(SimpleBoundingFeature.class)).ifPresent(boundingFeatureEditor::migrate);
+        Optional.ofNullable(gameArena.getFeature(SimpleParticleFeature.class)).ifPresent(particleFeatureEditor::migrate);
         Optional.ofNullable(gameArena.getFeature(ArenaLogicFeature.class))
                 .map(ArenaLogicFeature::getArenaLogic)
                 .filter(KOTHGameLogic.class::isInstance)
