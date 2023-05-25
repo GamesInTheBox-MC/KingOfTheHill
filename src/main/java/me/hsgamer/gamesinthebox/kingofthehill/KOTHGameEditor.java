@@ -17,7 +17,7 @@ import java.util.*;
 public class KOTHGameEditor extends TemplateGameEditor {
     private final SimpleBoundingFeature.Editor boundingFeatureEditor = SimpleBoundingFeature.editor(true);
     private final SimpleParticleFeature.Editor particleFeatureEditor = SimpleParticleFeature.editor();
-    private int minPlayersToAddPoint = -1;
+    private int maxPlayersToAddPoint = -1;
     private Double particleRate;
     private Long particlePeriod;
 
@@ -30,16 +30,16 @@ public class KOTHGameEditor extends TemplateGameEditor {
         Map<String, SimpleAction> map = super.createActionMap();
         map.putAll(boundingFeatureEditor.getActions());
         map.putAll(particleFeatureEditor.getActions());
-        map.put("set-min-players-to-add-point", new NumberAction() {
+        map.put("set-max-players-to-add-point", new NumberAction() {
             @Override
             protected boolean performAction(@NotNull CommandSender sender, @NotNull Number value, String... args) {
-                minPlayersToAddPoint = value.intValue();
+                maxPlayersToAddPoint = value.intValue();
                 return true;
             }
 
             @Override
             public @NotNull String getDescription() {
-                return "Set the minimum players to add point";
+                return "Set the maximum players to add point";
             }
 
             @Override
@@ -93,14 +93,14 @@ public class KOTHGameEditor extends TemplateGameEditor {
             @Override
             public void sendStatus(@NotNull CommandSender sender) {
                 MessageUtils.sendMessage(sender, "&6&lKOTH Game Editor");
-                MessageUtils.sendMessage(sender, "&eMin players to add point: &6" + minPlayersToAddPoint);
+                MessageUtils.sendMessage(sender, "&eMax players to add point: &6" + maxPlayersToAddPoint);
                 MessageUtils.sendMessage(sender, "&eParticle rate: &6" + (particleRate == null ? "Default" : particleRate));
                 MessageUtils.sendMessage(sender, "&eParticle period: &6" + (particlePeriod == null ? "Default" : particlePeriod));
             }
 
             @Override
             public void reset(@NotNull CommandSender sender) {
-                minPlayersToAddPoint = -1;
+                maxPlayersToAddPoint = -1;
                 particleRate = null;
                 particlePeriod = null;
             }
@@ -113,7 +113,7 @@ public class KOTHGameEditor extends TemplateGameEditor {
             @Override
             public Map<String, Object> toPathValueMap(@NotNull CommandSender sender) {
                 Map<String, Object> map = new LinkedHashMap<>();
-                map.put("min-players-to-add-point", minPlayersToAddPoint);
+                map.put("max-players-to-add-point", maxPlayersToAddPoint);
                 map.put("particle.rate", particleRate);
                 map.put("particle.period", particlePeriod);
                 return map;
@@ -130,7 +130,7 @@ public class KOTHGameEditor extends TemplateGameEditor {
                 .map(ArenaLogicFeature::getArenaLogic)
                 .filter(KOTHGameLogic.class::isInstance)
                 .map(KOTHGameLogic.class::cast)
-                .ifPresent(logic -> minPlayersToAddPoint = logic.getMinPlayersToAddPoint());
+                .ifPresent(logic -> maxPlayersToAddPoint = logic.getMaxPlayersToAddPoint());
         Optional.ofNullable(gameArena.getFeature(ParticleTaskFeature.class))
                 .ifPresent(particle -> {
                     particleRate = particle.getRate();

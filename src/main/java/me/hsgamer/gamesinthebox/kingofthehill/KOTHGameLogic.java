@@ -25,14 +25,14 @@ import java.util.UUID;
 import java.util.stream.Collectors;
 
 public class KOTHGameLogic extends TemplateGameArenaLogic {
-    private int minPlayersToAddPoint = -1;
+    private int maxPlayersToAddPoint = -1;
 
     public KOTHGameLogic(TemplateGameArena arena) {
         super(arena);
     }
 
-    public int getMinPlayersToAddPoint() {
-        return minPlayersToAddPoint;
+    public int getMaxPlayersToAddPoint() {
+        return maxPlayersToAddPoint;
     }
 
     @Override
@@ -46,17 +46,17 @@ public class KOTHGameLogic extends TemplateGameArenaLogic {
 
     @Override
     public void postInit() {
-        minPlayersToAddPoint = Optional.ofNullable(arena.getFeature(GameConfigFeature.class))
-                .map(gameConfigFeature -> gameConfigFeature.getString("min-players-to-add-point"))
+        maxPlayersToAddPoint = Optional.ofNullable(arena.getFeature(GameConfigFeature.class))
+                .map(gameConfigFeature -> gameConfigFeature.getString("max-players-to-add-point"))
                 .flatMap(Validate::getNumber)
                 .map(Number::intValue)
-                .orElse(minPlayersToAddPoint);
+                .orElse(maxPlayersToAddPoint);
     }
 
     @Override
     public @Nullable String replace(@NotNull String input) {
-        if (input.equalsIgnoreCase("min_players_to_add_point")) {
-            return String.valueOf(minPlayersToAddPoint);
+        if (input.equalsIgnoreCase("max_players_to_add_point")) {
+            return String.valueOf(maxPlayersToAddPoint);
         }
         return null;
     }
@@ -77,7 +77,7 @@ public class KOTHGameLogic extends TemplateGameArenaLogic {
                 .filter(player -> !player.isDead() && boundingFeature.checkBounding(player, true))
                 .map(Player::getUniqueId)
                 .collect(Collectors.toList());
-        if (!playersToAdd.isEmpty() && (minPlayersToAddPoint < 0 || playersToAdd.size() >= minPlayersToAddPoint)) {
+        if (!playersToAdd.isEmpty() && (maxPlayersToAddPoint < 0 || playersToAdd.size() <= maxPlayersToAddPoint)) {
             pointFeature.applyPoint(playersToAdd, KingOfTheHill.POINT_PLUS);
         }
 
