@@ -6,6 +6,7 @@ import me.hsgamer.gamesinthebox.game.template.TemplateGameArena;
 import me.hsgamer.gamesinthebox.game.template.TemplateGameArenaLogic;
 import me.hsgamer.gamesinthebox.game.template.TemplateGameEditor;
 import me.hsgamer.gamesinthebox.game.template.expansion.TemplateGameExpansion;
+import me.hsgamer.gamesinthebox.util.UpdateUtil;
 import me.hsgamer.hscore.bukkit.config.BukkitConfig;
 import me.hsgamer.hscore.common.CollectionUtils;
 import me.hsgamer.hscore.config.proxy.ConfigGenerator;
@@ -21,6 +22,11 @@ public class KingOfTheHill extends TemplateGameExpansion {
     public static final SimplePointFeature.PointValue POINT_MINUS = new SimplePointFeature.PointValue("minus", -1, true);
 
     private final KOTHMessageConfig messageConfig = ConfigGenerator.newInstance(KOTHMessageConfig.class, new BukkitConfig(new File(getDataFolder(), "messages.yml")));
+
+    @Override
+    protected void enable() {
+        UpdateUtil.notifyUpdate(this, "GamesInTheBox-MC/KingOfTheHill");
+    }
 
     @Override
     public TemplateGameArenaLogic createArenaLogic(TemplateGameArena arena) {
