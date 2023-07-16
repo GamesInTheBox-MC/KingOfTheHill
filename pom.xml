@@ -5,7 +5,7 @@
     <modelVersion>4.0.0</modelVersion>
     
     <artifactId>king-of-the-hill</artifactId>
-    <version>1.0.2</version>
+    <version>1.0.3</version>
     <packaging>jar</packaging>
 
     <name>KingOfTheHill</name>
@@ -31,7 +31,7 @@
         <dependency>
             <groupId>com.github.GamesInTheBox-MC</groupId>
             <artifactId>GamesInTheBox</artifactId>
-            <version>1.1.4</version>
+            <version>1.2.0</version>
             <scope>provided</scope>
         </dependency>
     </dependencies>
