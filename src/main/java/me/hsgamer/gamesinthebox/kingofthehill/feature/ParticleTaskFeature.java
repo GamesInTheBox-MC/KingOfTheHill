@@ -1,7 +1,7 @@
 package me.hsgamer.gamesinthebox.kingofthehill.feature;
 
 import com.cryptomorin.xseries.particles.ParticleDisplay;
-import com.cryptomorin.xseries.particles.XParticle;
+import com.cryptomorin.xseries.particles.Particles;
 import me.hsgamer.gamesinthebox.game.feature.BoundingFeature;
 import me.hsgamer.gamesinthebox.game.feature.GameConfigFeature;
 import me.hsgamer.gamesinthebox.game.simple.SimpleGameArena;
@@ -49,7 +49,7 @@ public class ParticleTaskFeature implements Feature {
         Location start = BukkitBlockAdapter.adapt(world, new Position(box.minX, box.minY, box.minZ));
         Location end = BukkitBlockAdapter.adapt(world, new Position(box.maxX, box.maxY, box.maxZ));
         ParticleDisplay particleDisplay = arena.getFeature(SimpleParticleFeature.class).getParticleDisplay();
-        task = Scheduler.current().async().runTaskTimer(() -> XParticle.structuredCube(start, end, rate, particleDisplay), period, period);
+        task = Scheduler.current().async().runTaskTimer(() -> Particles.structuredCube(start, end, rate, particleDisplay), period, period);
     }
 
     public void stop() {
